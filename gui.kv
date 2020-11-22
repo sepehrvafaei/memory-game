@@ -1,0 +1,247 @@
+WindowManager:
+    MainWindow:
+    SecondWindow:
+        id: second
+    ThirdWindow:
+        second :second
+    FourthWindow:
+    FifthWindow:
+        
+<BackgroundColor@Widget>
+    background_color: 1, 1, 1, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            
+<BackgroundLabel@Label+BackgroundColor>
+    background_color: 0, 0, 0, 0
+
+<BackgroundTextInput@TextInput+BackgroundColor>
+    background_color: 0, 0, 0, 0
+    
+<MainWindow>:
+    name: "main"
+    BoxLayout:
+        orientation:"vertical"
+        size_hint:.3,.3
+        pos_hint:{'center_x':.5,'center_y':.5}
+        spacing:5
+        Button:
+            size_hint:1,.5
+            background_normal:''
+            background_color:.7,.2,.7,1
+            text:"words"
+            font_size:'30sp'
+            on_release:
+                app.root.current="Second"
+                root.manager.transition.direction="left"
+        Button:
+            size_hint:1,.5
+            background_normal:''
+            background_color:.7,.2,.7,1
+            text:"colors' pattern"
+            font_size:'30sp'
+            on_release:
+                app.root.current="Fourth"
+                root.manager.transition.direction="left"
+
+<modal_view>:
+    size_hint:.5,.5
+    FloatLayout:
+        Button:
+            id:result
+            text:""
+            pos_hint:{'x':.4, 'y':.7}
+            size_hint: .2,.2
+            background_normal:''
+            background_color:.1,.8,.3,1
+        Button:
+            text:'try again'
+            pos_hint:{'x':.2,'y':.4}
+            size_hint: .6,.2
+            background_normal:''
+            background_color:.7,.2,.7,1
+            on_press:
+                app.root.current="Second"
+                root.dismiss()
+                
+        Button:
+            text:'main_page'
+            pos_hint:{'x':.2,'y':.1}
+            size_hint:.6,.2
+            background_normal:''
+            background_color:.7,.2,.7,1
+            on_press:
+                app.root.current="main"
+                root.dismiss()
+
+<SecondWindow>:
+    name:"Second"
+    BoxLayout:
+        spacing:5
+        size_hint_y:.1
+        pos_hint:{'top':1}
+        Button:
+            background_normal:''
+            background_color:.24,.78,.54,1
+            text:"exit"
+            on_release:app.get_running_app().stop()
+        Button:
+            background_normal:''
+            background_color:.24,.78,.54,1
+            text:"home"
+            on_release:
+                app.root.current="main"
+                root.manager.transition.direction="left"
+    FloatLayout:
+        BackgroundLabel:
+            background_color: .7,.2,.7,1
+            text:"enter number of words:"
+            size_hint: 0.4,0.1
+            font_size: 20
+            pos_hint: {"x":0.2,"y":0.7}
+
+        TextInput:
+            id: number
+            font_size: 15
+            size_hint: 0.1,0.1
+            text:""
+            pos_hint:{"x":0.7,"y":0.7}
+        
+        Button:
+            font_size: 20
+            background_normal:''
+            background_color:.97,.58,.02,1
+            size_hint: 0.2,0.2
+            text:"start"
+            pos_hint:{"x":0.4,"y":0.4}
+            on_press:
+                root.on_start()
+
+        BackgroundLabel:
+            id: content2
+            color: 0,0,0,1
+            background_color: .5,.5,.5,1
+            text:""
+            size_hint: 0.2,0.2
+            font_size: 20
+            pos_hint: {"x":0.4,"y":0.1}
+              
+<ThirdWindow>:
+    name:"Third"
+    
+    FloatLayout:
+
+        Button:
+            font_size: 20
+            background_normal:''
+            background_color:.97,.58,.02,1
+            size_hint: 0.2,0.2
+            text:"check"
+            pos_hint:{"x":0.4,"y":0.6}
+            on_press: root.validate()
+                
+        TextInput:
+            id: answer3
+            size_hint: 0.2,0.2
+            font_size: 20
+            pos_hint: {"x":0.4,"y":0.2}
+            multiline: True
+
+<FourthWindow>:
+    name:"Fourth"
+    BoxLayout:
+        size_hint_y:.1
+        pos_hint:{'top':1}
+        Button:
+            background_normal:''
+            background_color:.97,.58,.02,1
+            text:"exit"
+            on_release:app.get_running_app().stop()
+        Button:
+            background_normal:''
+            background_color:.97,.58,.02,1
+            text:"home"
+            on_release:
+                app.root.current="main"
+                root.manager.transition.direction="left"
+    Button:
+        size_hint:.1,.1
+        pos_hint:{'top':.8,'center_x':.5}
+        text:"start"
+        background_normal:''
+        background_color:.97,.58,.02,1
+        on_release:root.color_pattern()
+<FifthWindow>:
+    name:"Fifth"
+    BoxLayout:
+        spacing:3
+        size_hint_y:.1
+        pos_hint:{'top':1}
+        Button:
+            text:"exit"
+            on_release:app.get_running_app().stop()
+            background_normal:''
+            background_color:.7,.2,.7,1
+        Button:
+            text:"home"
+            background_normal:''
+            background_color:.7,.2,.7,1
+            on_release:
+                app.root.current="main"
+                root.manager.transition.direction="left"
+    Button:
+        size_hint:.1,.1
+        pos_hint:{'top':.8,'center_x':.5}
+        text:"check"
+        background_normal:''
+        background_color:.7,.2,.7,1
+        font_size:'20sp'
+        on_release:root.validate_pattern()
+    BoxLayout:
+        orientation:"vertical"
+        size_hint:.2,.4
+        pos_hint:{'top':.5,'center_x':.5}
+        BoxLayout:
+            size_hint:1,.1
+            BackgroundLabel:
+                background_color: 0.353, 0.757, 0.557,1
+            BackgroundLabel:
+                background_color: 1,1,.4,1
+        BoxLayout:
+            size_hint:1,.9
+            TextInput:
+                id:color_1
+            TextInput:
+                id: color_2
+<modal_view_2>:
+    size_hint:.5,.5
+    FloatLayout:
+        Label:
+            id:result
+            text:""
+            pos_hint:{'x':.4, 'y':.7}
+            size_hint: .2,.2
+            background_normal:''
+            background_color:.1,.8,.3,1
+        Button:
+            text:'try again'
+            pos_hint:{'x':.2,'y':.4}
+            size_hint: .6,.2
+            background_normal:''
+            background_color:.7,.2,.7,1
+            on_press:
+                app.root.current="Fourth"
+                root.dismiss()
+        Button:
+            text:'main_page'
+            pos_hint:{'x':.2,'y':.1}
+            size_hint:.6,.2
+            background_normal:''
+            background_color:.7,.2,.7,1
+            on_press:
+                app.root.current="main"
+                root.dismiss() 
